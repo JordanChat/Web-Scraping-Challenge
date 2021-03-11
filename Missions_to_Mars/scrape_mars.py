@@ -8,11 +8,11 @@ import requests
 
 def scrape():
     executable_path = {'executable_path':ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser('chrome', **executable_path, headless=True)
 
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
-    time.sleep(3)
+    time.sleep(2)
 
     html = browser.html
     soup = bs(html, 'html.parser')
@@ -60,7 +60,7 @@ def scrape():
         soup = bs(image_url88, 'html.parser')
         img_url = image_url3 + soup.find('img', class_ = 'wide-image')['src']
         hemisphere_image_urls.append({
-            'hemisphere_titles': title, 
+            'hemisphere_titles': hemisphere_titles, 
             'image_url': img_url})
 
     scraped_stuff = {
@@ -71,6 +71,8 @@ def scrape():
     }
 
     return scraped_stuff
+
+print(scrape())
 
     
     
